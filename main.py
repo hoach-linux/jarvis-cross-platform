@@ -18,6 +18,7 @@ import random
 
 import pvporcupine
 import simpleaudio as sa
+import pyaudio as pa
 from pvrecorder import PvRecorder
 from rich import print
 import vosk
@@ -34,11 +35,11 @@ import subprocess
 import time
 
 from ctypes import POINTER, cast
-from comtypes import CLSCTX_ALL, COMObject
-from pycaw.pycaw import (
-    AudioUtilities,
-    IAudioEndpointVolume
-)
+# from comtypes import CLSCTX_ALL, COMObject
+# from pycaw.pycaw import (
+#     AudioUtilities,
+#     IAudioEndpointVolume
+# )
 
 import openai
 from gpytranslate import SyncTranslator
@@ -53,7 +54,7 @@ openai.api_key = config.OPENAI_TOKEN
 
 # PORCUPINE
 porcupine = pvporcupine.create(
-    access_key='H2JhXpfLdGYG2wMqvc61tipo0uKZQvwkEfA26CAQQe5n1y7zfZGneQ==',
+    access_key='iQiykoyRhOkyfH1YiXZPCZ0cxqfC4fIWREDUe7vN2DrhFbnCN1tC8A==',
     keywords=['jarvis'],
     sensitivities=[1]
 )
@@ -85,10 +86,10 @@ def gpt_answer(message):
     return translated_result.text
 
 
-# play(f'{CDIR}\\sound\\ok{random.choice([1, 2, 3, 4])}.wav')
+# play(f'{CDIR}/sound/ok{random.choice([1, 2, 3, 4])}.wav')
 def play(phrase, wait_done=True):
     global recorder
-    filename = f"{CDIR}\\sound\\"
+    filename = f"{CDIR}/sound/"
 
     if phrase == "greet": # for py 3.8
         filename += f"greet{random.choice([1, 2, 3])}.wav"
@@ -207,56 +208,56 @@ def execute_cmd(cmd: str, voice: str):
         tts.va_speak(random.choice(jokes))
 
     elif cmd == 'open_browser':
-        subprocess.Popen([f'{CDIR}\\custom-commands\\Run browser.exe'])
+        subprocess.Popen([f'{CDIR}/custom-commands/Run browser.exe'])
         play("ok")
 
     elif cmd == 'open_youtube':
-        subprocess.Popen([f'{CDIR}\\custom-commands\\Run youtube.exe'])
+        subprocess.Popen([f'{CDIR}/custom-commands/Run youtube.exe'])
         play("ok")
 
     elif cmd == 'open_google':
-        subprocess.Popen([f'{CDIR}\\custom-commands\\Run google.exe'])
+        subprocess.Popen([f'{CDIR}/custom-commands/Run google.exe'])
         play("ok")
 
     elif cmd == 'music':
-        subprocess.Popen([f'{CDIR}\\custom-commands\\Run music.exe'])
+        subprocess.Popen([f'{CDIR}/custom-commands/Run music.exe'])
         play("ok")
 
     elif cmd == 'music_off':
-        subprocess.Popen([f'{CDIR}\\custom-commands\\Stop music.exe'])
+        subprocess.Popen([f'{CDIR}/custom-commands/Stop music.exe'])
         time.sleep(0.2)
         play("ok")
 
     elif cmd == 'music_save':
-        subprocess.Popen([f'{CDIR}\\custom-commands\\Save music.exe'])
+        subprocess.Popen([f'{CDIR}/custom-commands/Save music.exe'])
         time.sleep(0.2)
         play("ok")
 
     elif cmd == 'music_next':
-        subprocess.Popen([f'{CDIR}\\custom-commands\\Next music.exe'])
+        subprocess.Popen([f'{CDIR}/custom-commands/Next music.exe'])
         time.sleep(0.2)
         play("ok")
 
     elif cmd == 'music_prev':
-        subprocess.Popen([f'{CDIR}\\custom-commands\\Prev music.exe'])
+        subprocess.Popen([f'{CDIR}/custom-commands/Prev music.exe'])
         time.sleep(0.2)
         play("ok")
 
-    elif cmd == 'sound_off':
-        play("ok", True)
+    # elif cmd == 'sound_off':
+    #     play("ok", True)
 
-        devices = AudioUtilities.GetSpeakers()
-        interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
-        volume = cast(interface, POINTER(IAudioEndpointVolume))
-        volume.SetMute(1, None)
+    #     devices = AudioUtilities.GetSpeakers()
+    #     interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+    #     volume = cast(interface, POINTER(IAudioEndpointVolume))
+    #     volume.SetMute(1, None)
 
-    elif cmd == 'sound_on':
-        devices = AudioUtilities.GetSpeakers()
-        interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
-        volume = cast(interface, POINTER(IAudioEndpointVolume))
-        volume.SetMute(0, None)
+    # elif cmd == 'sound_on':
+    #     devices = AudioUtilities.GetSpeakers()
+    #     interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+    #     volume = cast(interface, POINTER(IAudioEndpointVolume))
+    #     volume.SetMute(0, None)
 
-        play("ok")
+    #     play("ok")
 
     elif cmd == 'thanks':
         play("thanks")
@@ -266,23 +267,23 @@ def execute_cmd(cmd: str, voice: str):
 
     elif cmd == 'gaming_mode_on':
         play("ok")
-        subprocess.check_call([f'{CDIR}\\custom-commands\\Switch to gaming mode.exe'])
+        subprocess.check_call([f'{CDIR}/custom-commands/Switch to gaming mode.exe'])
         play("ready")
 
     elif cmd == 'gaming_mode_off':
         play("ok")
-        subprocess.check_call([f'{CDIR}\\custom-commands\\Switch back to workspace.exe'])
+        subprocess.check_call([f'{CDIR}/custom-commands/Switch back to workspace.exe'])
         play("ready")
 
     elif cmd == 'switch_to_headphones':
         play("ok")
-        subprocess.check_call([f'{CDIR}\\custom-commands\\Switch to headphones.exe'])
+        subprocess.check_call([f'{CDIR}/custom-commands/Switch to headphones.exe'])
         time.sleep(0.5)
         play("ready")
 
     elif cmd == 'switch_to_dynamics':
         play("ok")
-        subprocess.check_call([f'{CDIR}\\custom-commands\\Switch to dynamics.exe'])
+        subprocess.check_call([f'{CDIR}/custom-commands/Switch to dynamics.exe'])
         time.sleep(0.5)
         play("ready")
 
