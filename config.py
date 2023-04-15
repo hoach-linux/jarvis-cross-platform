@@ -10,7 +10,7 @@ MICROPHONE_INDEX = -1  # ID микрофона (можете просто мен
 
 CHROME_PATH = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
 
-OPENAI_TOKEN = ""
+OPENAI_TOKEN = "YOUR OPENAI TOKEN"
 
 VA_CMD_LIST = {
     "open_browser": ('открой браузер', 'запусти браузер', 'открой гугл хром', 'гугл хром'),
